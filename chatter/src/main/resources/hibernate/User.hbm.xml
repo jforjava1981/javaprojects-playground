@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.chatter.service.domain.vo.User" table="users" dynamic-insert="true" dynamic-update="false">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="identity" />
+		</id>
+		<property column="user_id" name="userId" type="java.lang.String" />
+		<property column="user_pass" name="userPassword" type="java.lang.String" />
+		<property column="user_first_name" name="userFirstName" type="java.lang.String" />
+		<property column="user_last_name" name="userLastName" type="java.lang.String" />
+		<property column="user_email" name="userEmailId" type="java.lang.String" />
+		<property column="logged_in" name="loggedIn" type="java.lang.String" />
+		
+		<set name="friends" table="chat_friends" 
+        	inverse="false" lazy="true" cascade="save-update" >
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.chatter.service.domain.vo.User">
+                <column name="friend_id" not-null="true" />
+            </many-to-many>
+        </set>
+		<set name="roles" table="user_role" 
+        	inverse="false" lazy="true" cascade="all" >
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.chatter.service.domain.vo.Role">
+                <column name="role_id" not-null="true" />
+            </many-to-many>
+        </set>
+        
+        <set name="chatRequests" inverse="false" lazy="true" cascade="all" >
+            <key>
+                <column name="to_user" not-null="true" />
+            </key>
+            <one-to-many class="com.chatter.service.domain.vo.ChatRequest"></one-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

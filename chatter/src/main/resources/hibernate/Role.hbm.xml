@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.chatter.service.domain.vo.Role" table="roles" dynamic-insert="true" dynamic-update="false">
+		<id column="role_id" name="id" type="java.lang.Integer">
+			<generator class="identity" />
+		</id>
+		<property column="role_name" name="roleName" type="java.lang.String" />
+		<property column="role_description" name="roleDescription" type="java.lang.String" />
+		<set name="users" table="user_role" 
+        	inverse="false" lazy="true" cascade="all" >
+            <key>
+                <column name="role_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.chatter.service.domain.vo.User">
+                <column name="user_id" not-null="true" />
+            </many-to-many>
+        </set>
+	</class>
+</hibernate-mapping>

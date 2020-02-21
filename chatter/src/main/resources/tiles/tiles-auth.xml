@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+   <definition name="home" extends="baseLayout">
+      <put-attribute name="title"  value="Home"/>
+      <put-attribute name="body"   value="/jsp/auth/home.jsp"/>      
+   </definition>
+    <definition name="login" extends="loginLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="body"   value="/jsp/auth/login.jsp"/>      
+   </definition>
+   <definition name="index" extends="loginLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="body"   value="/jsp/auth/landingPage.jsp"/>      
+   </definition>
+   <definition name="showregister" extends="loginLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="body"   value="/jsp/auth/register.jsp"/>      
+   </definition>
+</tiles-definitions>

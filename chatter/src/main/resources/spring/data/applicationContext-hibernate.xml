@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop.xsd
+     http://www.springframework.org/schema/jee 
+     http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+	<!-- <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close"> <property name="driverClassName" value="org.hsqldb.jdbcDriver" 
+		/> <property name="url" value="jdbc:hsqldb:hsql://localhost:9001" /> <property 
+		name="username" value="sa" /> <property name="password" value="" /> </bean> -->
+
+
+	<bean id="chatterDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/chatter" />
+	</bean>
+
+	<bean id="chatterSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="chatterDataSource" />
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:/hibernate</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.max_fetch_depth">2</prop>
+				<prop key="hibernate.autocommit">false</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="chatterSessionFactory" />
+	</bean>
+	<!-- the transactional advice (what 'happens'; see the <aop:advisor/> bean 
+		below) -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<!-- the transactional semantics... -->
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="count*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="validate*" propagation="REQUIRED"
+				read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="login" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- ensure that the above transactional advice runs for any execution of 
+		an operation defined by the service interfaces -->
+	<aop:config>
+		<aop:pointcut id="springAuthServiceOperation"
+			expression="execution(* com.chatter.service.security.IChatterUserDetailsService.*(..))" />
+		<aop:pointcut id="authServiceOperation"
+			expression="execution(* com.chatter.service.auth.IAuthService.*(..))" />
+		<aop:pointcut id="chatServiceOperation"
+			expression="execution(* com.chatter.service.chat.IChatService.*(..))" />	
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="authServiceOperation" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="chatServiceOperation" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="springAuthServiceOperation" />
+	</aop:config>
+
+</beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+   <definition name="baseLayout" template="/jsp/common/layouts/baseLayout.jsp">
+   	  <put-attribute name="title"  value="Katz Industries"/>
+      <put-attribute name="header" value="/jsp/common/layouts/header.jsp"/>
+      <put-attribute name="menus" value="/jsp/common/layouts/menu.jsp"/>
+      <put-attribute name="body"   value="/jsp/common/layouts/body.jsp"/>
+      <put-attribute name="footer" value="/jsp/common/layouts/footer.jsp"/>
+   </definition>
+   <definition name="loginLayout" template="/jsp/common/layouts/login/loginLayout.jsp">
+   	  <put-attribute name="title"  value="Login"/> 	
+      <put-attribute name="header" value="/jsp/common/layouts/login/loginHeader.jsp"/>
+      <put-attribute name="body"   value="/jsp/common/layouts/login/loginBody.jsp"/>
+      <put-attribute name="footer" value="/jsp/common/layouts/login/loginFooter.jsp"/>
+   </definition>
+   <definition name="ajaxPopupLayout" template="/jsp/common/layouts/ajax/ajaxLayout.jsp">
+   	  <put-attribute name="body"   value="/jsp/common/layouts/body.jsp"/>
+   </definition>
+</tiles-definitions>

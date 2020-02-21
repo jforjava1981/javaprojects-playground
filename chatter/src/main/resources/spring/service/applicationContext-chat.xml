@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="chatService" class="com.chatter.service.chat.ChatService">
+  		<property name="authDAO" ref="authDAO"></property>
+  		<property name="chatDAO" ref="chatDAO"></property>
+  		
+  </bean>
+  		
+</beans>

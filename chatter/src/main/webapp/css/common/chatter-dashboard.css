@@ -1,0 +1,200 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 125px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+   color: #fff;
+  background-color: #428bca; 
+}
+
+.nav-sidebar > li > span {
+  padding-right: 20px;
+  padding-left: 20px;
+  position: relative;
+  display: block;
+  padding: 10px 20px;
+}
+
+.nav-sidebar > li > span{
+	color: gray;
+}
+
+.nav-sidebar >  li > .offline{
+	color: gray;
+}
+
+.offline{
+	color: gray;
+}
+
+.nav-sidebar > li > .online{
+	color: #1de21d;
+}
+
+.online{
+	color: #1de21d;
+}
+
+.nav-sidebar >  li > .idle{
+	color: orange;
+}
+
+.idle{
+	color: orange;
+}
+
+.nav-sidebar >  li > .busy{
+	color: red;
+}
+
+.busy{
+	color: red;
+}
+
+.nav-sidebar > li > span{
+	color: gray;
+}
+
+.nav-sidebar > li > span:hover,
+.nav-sidebar > li > span:focus {
+   color: #fff;
+  background-color: #428bca; 
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 50px;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.chatMsgContainer{
+	display: block;
+	min-height: 100px;
+	background: white;
+	margin-left: 2px;
+	margin-right: 2px;
+	overflow-x:auto;
+	overflow-y:auto;
+	max-height:100px;
+	max-width: 500px; 
+}
+
+.chatTxtContainer{
+	display: block;
+	min-height: 70px;
+	max-height:70px;
+	resize: none;
+	overflow-x:auto;
+	overflow-y:auto;
+	width:100%;
+}
+
+.border-top-radius {
+  border-top-right-radius: 5px;
+   border-top-left-radius: 5px;
+}
+.border-right-radius {
+  border-bottom-right-radius: 5px;
+     border-top-right-radius: 5px;
+}
+.border-bottom-radius {
+  border-bottom-right-radius: 5px;
+   border-bottom-left-radius: 5px;
+}
+.border-left-radius {
+  border-bottom-left-radius: 5px;
+     border-top-left-radius: 5px;
+}
+
+.ui-dialog > .ui-widget-header {background: black;}
