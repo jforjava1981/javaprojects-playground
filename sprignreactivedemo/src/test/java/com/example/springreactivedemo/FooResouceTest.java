@@ -11,6 +11,7 @@ import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
+import reactor.test.scheduler.VirtualTimeScheduler;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -51,7 +52,7 @@ public class FooResouceTest {
     }
 
     @Test
-    public void whenRun_then_Return_StreamOf5Foos_With_FirstElement_With_Id_1_and_Last_With_Id_5() {
+    public void whenRun_then_Return_StreamOf5Foos_With_FirstElement_With_Id_0_and_Last_With_Id_4() {
         FluxExchangeResult<Foo> result = webTestClient.get()
                 .uri("/foo")
                 .exchange()
@@ -61,13 +62,11 @@ public class FooResouceTest {
 
         Flux<Foo> fooFlux = result.getResponseBody().take(5);
         StepVerifier.create(fooFlux)
-             .expectSubscription()
-            .thenAwait(Duration.ofSeconds(1))
-            .expectNextCount(1)
-            .expectNextMatches(foo -> foo.getId().equals(1L))
-            .thenAwait(Duration.ofSeconds(4))
-            .expectNextCount(5)
-            .expectNextMatches(foo -> foo.getId().equals(5));
+            .expectSubscription()
+            .expectNextMatches(foo -> foo.getId().equals(0L))
+            .expectNextCount(3)
+            .expectNextMatches(foo -> foo.getId().equals(4L))
+            .verifyComplete();
     }
     @Test
     public void whenRun_then_Return_StreamOf5FoosWithNamesFromPossibleValue() {

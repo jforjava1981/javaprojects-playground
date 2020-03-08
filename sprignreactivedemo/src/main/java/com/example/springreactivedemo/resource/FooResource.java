@@ -28,8 +28,7 @@ public class FooResource {
         Flux<Long> fooIds = Flux.interval(Duration.ofSeconds(1));
 
         return Flux.zip(fooNames,fooIds)
-                .map(fooTuple -> new Foo(fooTuple.getT1(),fooTuple.getT2()))
-                .delayElements(Duration.ofSeconds(1));
+                .map(fooTuple -> new Foo(fooTuple.getT1(),fooTuple.getT2()));
     }
 
 }
